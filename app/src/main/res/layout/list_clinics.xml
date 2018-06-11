@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/padding"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/tvClinic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:padding="@dimen/padding"
+        android:text="@string/clinic"
+        android:textSize="@dimen/text_size" />
+
+    <TextView
+        android:id="@+id/tvLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tvWebsite"
+        android:layout_below="@+id/tvWebsite"
+        android:text="@string/address"
+        android:textSize="@dimen/text_size" />
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:padding="@dimen/padding"
+        android:text="@string/status"
+        android:textSize="@dimen/text_size" />
+
+    <TextView
+        android:id="@+id/tvWebsite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tvCall"
+        android:layout_below="@+id/tvCall"
+        android:text="@string/website"
+        android:textSize="@dimen/text_size" />
+
+    <TextView
+        android:id="@+id/tvCall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tvClinic"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="@dimen/padding"
+        android:text="@string/phone_number"
+        android:textSize="@dimen/text_size" />
+
+</RelativeLayout>
