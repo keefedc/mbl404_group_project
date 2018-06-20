@@ -1,32 +1,56 @@
 package edu.phoenix.mbl404.mbl404_group_project;
 
-import android.Manifest;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.PopupMenu;
-import android.widget.Toast;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    List<RolodexLoader> rolodex = Contacts.rolodexList;
-    Button button;
+    //Debugging Tag.
+    public final static String TAG = "[<<<------=== DEBUG ===------>>>]:  ";
+
+    //Constants.
+
+    //Activity Variables.
+
+    //Layout Variables.
+    private TabLayout tabLayout;
+    private AppBarLayout appBarLayout;
+    private ViewPager viewPager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button button = findViewById(R.id.button);
+
+        //Java-XML linking.
+        tabLayout = findViewById(R.id.tablayout_id);
+        appBarLayout = findViewById(R.id.appbarid);
+        viewPager = findViewById(R.id.viewpager_id);
+
+
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+        adapter.AddFragment(new FragmentSearch(), "Search");
+        adapter.AddFragment(new FragmentSavedList(), "Saved Clinics");
+
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+}
+
+/*
+
+
+    List<RolodexLoader> rolodex = Contacts.rolodexList;
+    Button button;
+
+
+
+Button button = findViewById(R.id.button);
 
         final ClinicRolodexListAdapter adapter = new ClinicRolodexListAdapter(this, rolodex);
 
@@ -88,4 +112,4 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-}
+ */
