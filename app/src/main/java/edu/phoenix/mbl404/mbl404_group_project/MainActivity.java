@@ -1,17 +1,22 @@
 package edu.phoenix.mbl404.mbl404_group_project;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-
+import android.util.Log;
+import android.widget.Toast;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 public class MainActivity extends AppCompatActivity {
 
     //Debugging Tag.
-    public final static String TAG = "[<<<------=== DEBUG ===------>>>]:  ";
+    public final static String TAG = "[<<--== DEBUG ==->>]:  ";
 
     //Constants.
+    private static final int ERROR_DIALOG_REQUEST = 9001;
 
     //Activity Variables.
 
@@ -39,6 +44,31 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+
+        if(playServiceCheck()){
+            execute();
+        }
+    }
+
+    private void execute(){
+
+    }
+
+    public boolean playServiceCheck(){
+        Log.d(TAG, "Service Check:  Checking Google Services Version.");
+        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MainActivity.this);
+
+        if(available == ConnectionResult.SUCCESS){
+            Log.d(TAG, "Service Check:  Google Play Services is working.");
+            return true;
+        } else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)){
+            Log.d(TAG, "Service Check:  Error, but fixable.");
+            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(MainActivity.this, available, ERROR_DIALOG_REQUEST);
+            dialog.show();
+        } else {
+            Toast.makeText(this, "You cannot make map requests", Toast.LENGTH_SHORT).show();
+        }
+        return false;
     }
 }
 
