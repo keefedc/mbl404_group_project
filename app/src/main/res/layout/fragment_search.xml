@@ -19,90 +19,72 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/search_container"
+    <Button
+        android:id="@+id/search_button"
         android:layout_width="0dp"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/search_border"
-        android:elevation="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/map"
-        app:layout_constraintStart_toStartOf="@+id/map"
-        app:layout_constraintTop_toTopOf="@+id/map">
-
-        <ImageView
-            android:id="@+id/ic_magnify"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/ic_magnify"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <AutoCompleteTextView
-            android:id="@+id/input_search"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@null"
-            android:hint="Enter Address, City or Zip Code"
-            android:imeOptions="actionSearch"
-            android:inputType="text"
-            android:maxLines="1"
-            android:textColor="#000"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ic_magnify"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </android.support.constraint.ConstraintLayout>
-
-    <ImageView
-        android:id="@+id/ic_gps"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:elevation="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/search_border"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_action_name"
-        app:layout_constraintEnd_toEndOf="@+id/map"
-        app:layout_constraintTop_toBottomOf="@+id/search_container" />
+        android:text="@string/find_a_clinic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/place_info"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/search_border"
         android:elevation="8dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_info"
         app:layout_constraintStart_toStartOf="@+id/map"
-        app:layout_constraintTop_toBottomOf="@+id/search_container" />
+        app:layout_constraintTop_toBottomOf="@+id/search_button" />
 
     <ImageView
-        android:id="@+id/place_picker"
+        android:id="@+id/ic_gps"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/search_border"
         android:elevation="8dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_map"
-        app:layout_constraintStart_toStartOf="@+id/map"
-        app:layout_constraintTop_toBottomOf="@+id/place_info" />
+        android:src="@drawable/ic_action_name"
+        app:layout_constraintEnd_toEndOf="@+id/map"
+        app:layout_constraintTop_toBottomOf="@+id/search_button" />
+
+    <Button
+        android:id="@+id/call_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/call_clinic"
+        app:layout_constraintBottom_toBottomOf="@+id/map"
+        app:layout_constraintStart_toStartOf="@+id/map" />
+
+    <Button
+        android:id="@+id/web_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/view_website"
+        app:layout_constraintBottom_toBottomOf="@+id/map"
+        app:layout_constraintStart_toEndOf="@+id/call_button" />
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/save_clinic"
+        app:layout_constraintBottom_toBottomOf="@+id/map"
+        app:layout_constraintStart_toEndOf="@+id/web_button" />
 
 </android.support.constraint.ConstraintLayout>

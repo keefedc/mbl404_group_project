@@ -4,12 +4,18 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     //Debugging Tag.
@@ -17,8 +23,12 @@ public class MainActivity extends AppCompatActivity {
 
     //Constants.
     private static final int ERROR_DIALOG_REQUEST = 9001;
+    public static final String SHARED_PREFERENCES = "SharedPreferences";
+    public static final String TITLE_KEY = "title";
 
     //Activity Variables.
+
+    public static List<String> savedData = new ArrayList<>();
 
     //Layout Variables.
     private TabLayout tabLayout;
@@ -44,6 +54,25 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         if(playServiceCheck()){
             execute();
@@ -71,75 +100,3 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 }
-
-/*
-
-
-    List<RolodexLoader> rolodex = Contacts.rolodexList;
-    Button button;
-
-
-
-Button button = findViewById(R.id.button);
-
-        final ClinicRolodexListAdapter adapter = new ClinicRolodexListAdapter(this, rolodex);
-
-        final ListView listView = findViewById(R.id.list);
-
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, AddContactActivity.class));
-                Toast.makeText(MainActivity.this, "Input Data and Click Add", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final RolodexLoader contact = rolodex.get(position);
-
-                PopupMenu popupMenu = new PopupMenu(MainActivity.this, listView);
-                popupMenu.getMenuInflater().inflate(R.menu.menu_main, popupMenu.getMenu());
-
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.map: // View Clinic on Map and get Directions
-
-//                                Intent intent = new Intent(this, YourActivity.class);
-//                                startActivity(intent);
-
-                                Toast.makeText(MainActivity.this,
-                                        "Activity Not Set-Up Yet!", Toast.LENGTH_LONG).show();
-                                return true;
-                            case R.id.call: // Call Clinic
-                                Intent phoneIntent = new Intent(Intent.ACTION_CALL);
-                                phoneIntent.setData(Uri.parse("tel:"+contact.getPhone()));
-                                if (ActivityCompat.checkSelfPermission(MainActivity.this,
-                                        Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED)
-                                startActivity(phoneIntent);
-                                return true;
-                            case R.id.website: //Visit Clinic's Website
-                                Intent intent = new Intent();
-                                intent.setAction(Intent.ACTION_VIEW);
-                                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                                intent.setData(Uri.parse(contact.getWebsite()));
-                                startActivity(intent);
-                                return true;
-                            default:
-                                return false;
-                        }
-                    }
-                });
-
-                popupMenu.show();
-            }
-        });
-
-    }
- */

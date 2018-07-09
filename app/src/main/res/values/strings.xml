@@ -1,16 +1,9 @@
 <resources>
     <string name="app_name">LT A</string>
-    <string name="add_new_clinic">Add New Clinic</string>
-    <string name="clinic">Clinic:</string>
-    <string name="address">Address:</string>
-    <string name="status">Status:</string>
-    <string name="view_map_directions">View Map/Directions</string>
-    <string name="call_clinic">Call Clinic</string>
-    <string name="visit_website">Visit Website</string>
-    <string name="phone_number">Phone Number</string>
-    <string name="website">Website</string>
-    <string name="add">ADD</string>
-
     <string name="google_maps_API_key">AIzaSyBcdYk9sgpxKD4JQ4zr9MYCu90kDPuhDsU</string>
+    <string name="call_clinic">Call Clinic</string>
+    <string name="view_website">View Website</string>
+    <string name="save_clinic">Save Clinic</string>
+    <string name="find_a_clinic">Find a Clinic</string>
 
 </resources>
