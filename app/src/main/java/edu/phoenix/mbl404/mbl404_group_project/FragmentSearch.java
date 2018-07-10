@@ -3,9 +3,7 @@ package edu.phoenix.mbl404.mbl404_group_project;
 import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
@@ -50,9 +48,6 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.places.Place;
 
 import static android.app.Activity.RESULT_OK;
-import static edu.phoenix.mbl404.mbl404_group_project.MainActivity.SHARED_PREFERENCES;
-import static edu.phoenix.mbl404.mbl404_group_project.MainActivity.TAG;
-import static edu.phoenix.mbl404.mbl404_group_project.MainActivity.savedData;
 
 public class FragmentSearch extends Fragment implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener  {
 
@@ -106,17 +101,12 @@ public class FragmentSearch extends Fragment implements OnMapReadyCallback, Goog
         mGPS = view.findViewById(R.id.ic_gps);
         mInfo = view.findViewById(R.id.place_info);
         searchButton = view.findViewById(R.id.search_button);
-
         callButton = (Button) view.findViewById(R.id.call_button);
         callButton.setVisibility(View.GONE);
         webButton = (Button) view.findViewById(R.id.web_button);
         webButton.setVisibility(View.GONE);
         saveButton = (Button) view.findViewById(R.id.save_button);
         saveButton.setVisibility(View.GONE);
-
-
-
-
         getLocationPermission();
         return view;
     }
@@ -124,22 +114,15 @@ public class FragmentSearch extends Fragment implements OnMapReadyCallback, Goog
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
-
         mapView = view.findViewById(R.id.map);
-
         if (mapView != null){
             mapView.onCreate(null);
             mapView.onResume();
             mapView.getMapAsync(this);
         }
-
-
      }
 
     private void init(){
-
-
-
         callButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -148,7 +131,6 @@ public class FragmentSearch extends Fragment implements OnMapReadyCallback, Goog
                 startActivity(callIntent);
             }
         });
-
         webButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -172,16 +154,11 @@ public class FragmentSearch extends Fragment implements OnMapReadyCallback, Goog
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String data = mPlace.getName().toString() + ";" +
                         mPlace.getAddress().toString() + ";" +
                         mPlace.getPhoneNumber().toString() + ";" +
                         mPlace.getWebsiteUri().toString();
-
                 MainActivity.savedData.add(data);
-
-
-                Log.d(TAG,  MainActivity.savedData.get(0).toString());
             }
         });
 
@@ -200,7 +177,6 @@ public class FragmentSearch extends Fragment implements OnMapReadyCallback, Goog
         mInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "onClick: clicked place info");
                 try{
                     if(mMarker.isInfoWindowShown()){
                         callButton.setVisibility(View.GONE);
@@ -208,15 +184,12 @@ public class FragmentSearch extends Fragment implements OnMapReadyCallback, Goog
                         saveButton.setVisibility(View.GONE);
                         mMarker.hideInfoWindow();
                     }else{
-                        Log.d(TAG, "onClick: place info: " + mPlace.toString());
                         callButton.setVisibility(View.VISIBLE);
                         webButton.setVisibility(View.VISIBLE);
                         saveButton.setVisibility(View.VISIBLE);
                         mMarker.showInfoWindow();
                     }
-                }catch (NullPointerException e){
-                    Log.e(TAG, "onClick: NullPointerException: " + e.getMessage() );
-                }
+                }catch (NullPointerException e){ }
             }
         });
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -226,10 +199,8 @@ public class FragmentSearch extends Fragment implements OnMapReadyCallback, Goog
                 try {
                     startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST);
                 } catch (GooglePlayServicesRepairableException e) {
-                    Log.e(TAG, "onClick: GooglePlayServicesRepairableException: " + e.getMessage() );
-                } catch (GooglePlayServicesNotAvailableException e) {
-                    Log.e(TAG, "onClick: GooglePlayServicesNotAvailableException: " + e.getMessage() );
-                }
+
+                } catch (GooglePlayServicesNotAvailableException e) { }
             }
         });
         hideSoftKeyboard();
@@ -270,7 +241,6 @@ public class FragmentSearch extends Fragment implements OnMapReadyCallback, Goog
     }
 
     private void moveCamera(LatLng latLng, float zoom, PlaceInfo placeInfo){
-        Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude );
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
         mMap.clear();
         mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(getActivity()));
@@ -289,9 +259,7 @@ public class FragmentSearch extends Fragment implements OnMapReadyCallback, Goog
                 webButton.setVisibility(View.VISIBLE);
                 saveButton.setVisibility(View.VISIBLE);
 
-            }catch (NullPointerException e){
-                Log.e(TAG, "moveCamera: NullPointerException: " + e.getMessage() );
-            }
+            }catch (NullPointerException e){ }
         }else{
             mMap.addMarker(new MarkerOptions().position(latLng));
         }
@@ -310,18 +278,13 @@ public class FragmentSearch extends Fragment implements OnMapReadyCallback, Goog
         hideSoftKeyboard();
     }
 
-
-
     private void getLocationPermission() {
-        Log.d(TAG, "getLocationPermission: Getting location permissions.");
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION};
         if (ContextCompat.checkSelfPermission(getActivity(),
                 FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            Log.d(TAG, "Fine Location Good");
             if (ContextCompat.checkSelfPermission(getActivity(),
                     COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                Log.d(TAG, "Course Location Good");
                 mLocationPermissionGranted = true;
             } else { requestPermissions(permissions, LOCATION_PERMISSION_REQUEST_CODE); }
         } else { requestPermissions(permissions, LOCATION_PERMISSION_REQUEST_CODE); }
@@ -329,7 +292,6 @@ public class FragmentSearch extends Fragment implements OnMapReadyCallback, Goog
 
     @Override
     public void onRequestPermissionsResult ( int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
-        Log.d(TAG, "onRequestPermissionResult: Called.");
         mLocationPermissionGranted = false;
         switch (requestCode) {
             case LOCATION_PERMISSION_REQUEST_CODE: {
@@ -354,39 +316,22 @@ public class FragmentSearch extends Fragment implements OnMapReadyCallback, Goog
         @Override
         public void onResult(@NonNull PlaceBuffer places) {
             if(!places.getStatus().isSuccess()){
-                Log.d(TAG, "onResult: Place query did not complete successfully: " + places.getStatus().toString());
                 places.release();
                 return;
             }
             final Place place = places.get(0);
-
             try{
                 mPlace = new PlaceInfo();
                 mPlace.setName(place.getName().toString());
-                Log.d(TAG, "onResult: name: " + place.getName());
                 mPlace.setAddress(place.getAddress().toString());
-                Log.d(TAG, "onResult: address: " + place.getAddress());
-//                mPlace.setAttributions(place.getAttributions().toString());
-//                Log.d(TAG, "onResult: attributions: " + place.getAttributions());
                 mPlace.setId(place.getId());
-                Log.d(TAG, "onResult: id:" + place.getId());
                 mPlace.setLatlng(place.getLatLng());
-                Log.d(TAG, "onResult: latlng: " + place.getLatLng());
                 mPlace.setRating(place.getRating());
-                Log.d(TAG, "onResult: rating: " + place.getRating());
                 mPlace.setPhoneNumber(place.getPhoneNumber().toString());
-                Log.d(TAG, "onResult: phone number: " + place.getPhoneNumber());
                 mPlace.setWebsiteUri(place.getWebsiteUri());
-                Log.d(TAG, "onResult: website uri: " + place.getWebsiteUri());
-
-                Log.d(TAG, "onResult: place: " + mPlace.toString());
-            }catch (NullPointerException e){
-                Log.e(TAG, "onResult: NullPointerException: " + e.getMessage() );
-            }
-
+            }catch (NullPointerException e){ }
             moveCamera(new LatLng(place.getViewport().getCenter().latitude,
                     place.getViewport().getCenter().longitude), DEFAULT_ZOOM, mPlace);
-
             places.release();
         }
     };

@@ -23,18 +23,12 @@ public class FragmentSavedList extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_saved_list, null);
-
         rvAdapter = new SavedViewAdapter(container.getContext(), MainActivity.savedData);
         RecyclerView rv = (RecyclerView) view.findViewById(R.id.saved_list);
         rv.setLayoutManager(new LinearLayoutManager(container.getContext()));
         rv.setItemAnimator(new DefaultItemAnimator());
         rv.addItemDecoration(new DividerItemDecoration(container.getContext(), LinearLayoutManager.VERTICAL));
         rv.setAdapter(rvAdapter);
-
-
-
         return view;
     }
-
-
 }

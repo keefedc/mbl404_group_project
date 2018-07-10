@@ -41,6 +41,4 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter{
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
     }
-
-
 }
